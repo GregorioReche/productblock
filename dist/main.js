@@ -72,7 +72,7 @@ __webpack_require__(1);
 var SDK = __webpack_require__(19);
 var sdk = new SDK(null, null, true); // 3rd argument true bypassing https requirement: not prod worthy
 
-var address, width, height, zoom, link, mapsKey;
+var address, width, height, zoom, link, mapsKey, select1;
 
 function debounce (func, wait, immediate) {
 	var timeout;
@@ -95,12 +95,16 @@ function paintSettings () {
 	document.getElementById('slider-id-01').value = width;
 	document.getElementById('slider-id-02').value = height;
 	document.getElementById('slider-id-03').value = zoom;
+
+	document.getElementById('select-01').value = select1;
 }
 
 function paintSliderValues () {
 	document.getElementById('slider-id-01-val').innerHTML = document.getElementById('slider-id-01').value;
 	document.getElementById('slider-id-02-val').innerHTML = document.getElementById('slider-id-02').value;
 	document.getElementById('slider-id-03-val').innerHTML = document.getElementById('slider-id-03').value;
+
+	document.getElementById('select-01').innerHTML = document.getElementById('select-01').value;
 }
 
 function paintMap() {
@@ -110,6 +114,10 @@ function paintMap() {
 	height = document.getElementById('slider-id-02').value;
 	zoom = document.getElementById('slider-id-03').value;
 	link = document.getElementById('text-input-id-2').value;
+
+	select1 = document.getElementById('select-01').value;
+
+
 	if (!address) {
 		return;
 	}
@@ -123,18 +131,20 @@ function paintMap() {
 		height: height,
 		zoom: zoom,
 		link: link,
-		mapsKey: mapsKey
+		mapsKey: mapsKey,
+		select1: select1
 	});
 	localStorage.setItem('googlemapsapikeyforblock', mapsKey);
 }
 
 sdk.getData(function (data) {
-	address = data.address || '';
-	width = data.width || 400;
-	height = data.height || 300;
-	zoom = data.zoom || 15;
-	link = data.link || '';
-	mapsKey = data.mapsKey || localStorage.getItem('googlemapsapikeyforblock');
+	// address = data.address || '';
+	// width = data.width || 400;
+	// height = data.height || 300;
+	// zoom = data.zoom || 15;
+	// link = data.link || '';
+	// mapsKey = data.mapsKey || localStorage.getItem('googlemapsapikeyforblock');
+	
 	paintSettings();
 	paintSliderValues();
 	paintMap();
